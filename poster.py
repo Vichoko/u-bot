@@ -1,14 +1,23 @@
 from time import sleep
 
 from splinter import Browser
+
 import private_credentials
 from settings import *
 
 
 def post_message(create_msg_url, category, title, message, send):
+    """
+    Create a new U-Cursos forum's message (a.k.a. thread).
+    :param category: Specific for community message category
+    :param create_msg_url: URL of new message view (syntax is https://www.u-cursos.cl/<institution>/<year>/<semester>/<community>/<section>/foro/mensaje)
+    :param title: Message Title
+    :param message: Message content
+    :param send: Boolean flag to send the message to the forum
+    :return:
+    """
     # config
     browser = Browser('chrome')
-    # new message syntax is: https://www.u-cursos.cl/<institution>/<year>/<semester>/<community>/<section>/foro/mensaje
     browser.visit(create_msg_url)
 
     # log in
@@ -35,7 +44,7 @@ def post_message(create_msg_url, category, title, message, send):
 def main():
     mode = input("""Menu:
         [0] Pre-visualizar Prueba. Se visualiza log-in y escritura de mensaje sin enviar el mensaje al final.
-        [1] Enviar mensaje a COMGAMER. Se le consultará categoria, titulo y mensaje. Se envía el mensaje al final.
+        [1] Enviar mensaje a COMGAMER. Se te consultará categoria, titulo y mensaje. Se envía el mensaje al final.
         [2] Activar bot de publicacion de juegos gratis.
         
     Ingrese opcion: """)
@@ -54,7 +63,7 @@ def main():
         print("Enviar mensaje a COMGAMER")
         DROPDOWN_CATEGORY_OPTION = input("Ingrese categoria del mensaje: ")
         TITLE = input("Ingrese titulo del mensaje: ")
-        MESSAGE = input("Ingrese contenido del mensaje (<br> para saltos de linea): ")
+        MESSAGE = input("Ingrese contenido del mensaje (\\n para saltos de linea): ")
         MESSAGE = MESSAGE.replace("\\n", "\n")
         URL = "https://www.u-cursos.cl/uchile/2010/0/COMGAMER/1/foro/mensaje"
         post_message(URL, DROPDOWN_CATEGORY_OPTION, TITLE, MESSAGE, False)
@@ -70,9 +79,3 @@ def main():
 if __name__ == "__main__":
     main()
 
-
-"""
-Ingrese categoria del mensaje: Utilidad Pública
-Ingrese titulo del mensaje: Layers of Fear Steam Gratis
-Ingrese contenido del mensaje: https://store.steampowered.com/app/391720/Layers_of_Fear/ \n asd \n\n\n asdads
-"""
