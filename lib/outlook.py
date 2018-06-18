@@ -143,6 +143,10 @@ class Outlook():
         latest_id = list[-1]
         return self.getEmail(latest_id)
 
+    def all_unread(self):
+        for latest_id in self.unreadIds():
+            yield self.getEmail(latest_id)
+
     def read(self):
         list = self.readIds()
         latest_id = list[-1]

@@ -1,7 +1,40 @@
 # all templates have 1 format argument
-free_game_templates = [
+import random
+
+FREE_GAME_TITLE_TEMPLATE_PLAT_GAME = [
+    "juego gratis: [{}] {}",
+    "gratis en {} el {}",
+    "en {} free por tiempo limitado {}",
+    "[{}] {} gratis por un tiempo",
+
+]
+FREE_GAME_TITLE_GAME = [
+    "gratis {}",
+    "{} gratis",
+    "[gratis] {}",
+]
+
+FREE_GAME_TITLE_GAME_PLAT = [
+    "{} gratis en {}",
+    "[GRATIS] {} - {}"
+
+]
+
+
+def fill_free_game_title_template(dic):
+    rand = random.uniform(0, 1)
+    if rand < 0.3333:
+        return random.choice(FREE_GAME_TITLE_GAME).format(dic["title"])
+
+    elif rand < 0.66666:
+        return random.choice(FREE_GAME_TITLE_GAME_PLAT).format(dic["title"], dic["platform"])
+    else:
+        return random.choice(FREE_GAME_TITLE_TEMPLATE_PLAT_GAME).format(dic["platform"], dic["title"])
+
+
+FREE_GAME_MSG_TEMPLATE = [
     """
-    {} no lo cacho pero es gratis.\n
+    {} no lo cacho pero esta gratis por un tiempo.\n
     saludos
     """,
 
@@ -49,5 +82,5 @@ free_game_templates = [
 
     """
     por si alguien le interesa {}
-    """
+    """,
 ]
